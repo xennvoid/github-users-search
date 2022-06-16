@@ -3,6 +3,8 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.search');
 const main = document.querySelector('.main');
 
+input.focus();
+
 form.onsubmit = function(e){
     e.preventDefault();
 
@@ -34,7 +36,7 @@ function createUserCard(user) {
             </div>
             <div class="user__bio">${user.bio || ''}</div>
             <div class="user__followers">Followers:${user.followers}</div>
-            <div class="user__followers">Public repos:${user.public_repos}</div>
+            <div class="user__followers">Repos:${user.public_repos}</div>
         </div> 
     </div>`;
 
@@ -58,7 +60,12 @@ function displayUserRepos(repos) {
 
     const reposDiv = document.querySelector('.user__repos');
 
-    repos.forEach(repo => {
-        reposDiv.insertAdjacentHTML('beforeend',`<a class="user__repo" href="${repo.clone_url}" target="_blank">${repo.name}</a>`);
-    });
+    if(repos.length == 0)
+        document.querySelector('.user__repos').remove();
+
+    else{
+        repos.forEach(repo => {
+            reposDiv.insertAdjacentHTML('beforeend',`<a class="user__repo" href="${repo.clone_url}" target="_blank">${repo.name}</a>`);
+        });
+    }  
 }
