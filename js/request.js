@@ -18,6 +18,9 @@ form.onsubmit = function(e){
 
 async function findGitHubUser(userLogin, ghubURL) {
     const res = await fetch(ghubURL+userLogin);
+
+    if(res.status == 404) return;
+    
     const data = await res.json();
     console.log(data);
 
